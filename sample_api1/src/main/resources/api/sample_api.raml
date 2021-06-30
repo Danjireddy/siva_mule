@@ -1,0 +1,85 @@
+#%RAML 1.0
+title: Sample_api
+/search:
+  get:
+    description: this is fetching/retriving  the data
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                "id":2
+              }
+  post:
+    description: this is inserting the data
+    body:
+      application/json:
+        example:
+          {
+            "id":2
+            "name":"veera"
+          }
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              {
+                "result":"sucessfully inserting the data"
+              }
+  put:
+    description: this is updating the data
+    body:
+      application/json:
+        example:
+          {
+            "id":2
+            "name":"anji"
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                "result":"sucessfully update the data"
+              }
+  delete:
+    description:  It is used to delete the records
+    body:
+      application/json:
+        example:
+          {
+            "id":2
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                "result":"sucessfully deleting the data"
+              }
+        
+            
+        
+                          
+        
+                           
+        
+          
+            
+                          
+      
+          
+                              
+              
+        
+            
+            
+
+                          
+          
+  
+                                 
