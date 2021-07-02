@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="76d2155d-f139-4113-9bf2-6f551afe9d19" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="project1Flow" doc:id="764926af-b2e4-48c6-adc6-a83fa7ce25f5" >
+		<http:listener doc:name="Listener" doc:id="a0bafcfd-4e39-4b18-9867-24fc3d4ba8fb" config-ref="HTTP_Listener_config" path="/veera"/>
+		<logger level="INFO" doc:name="Logger" doc:id="6e54fdd2-41be-4100-87ae-bdc43b4f5de2" message="Manual Job"/>
+	</flow>
+</mule>
