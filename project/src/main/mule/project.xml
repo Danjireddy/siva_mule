@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="2954e1b1-20b1-4288-906c-4a913a41bd44" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:listener-config name="HTTP_Listener_config6" doc:name="HTTP Listener config" doc:id="ac82f9c1-3dce-4594-86f2-dc879ab81022" >
+		<http:listener-connection host="0.0.0.0" port="8082" />
+	</http:listener-config>
+	<flow name="projectFlow" doc:id="6396e60a-870c-41ab-bef5-3d20c0e1198d" >
+		<scheduler doc:name="Scheduler" doc:id="e2ac782d-1157-4dc9-8910-0bf5ad18965a" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="1" timeUnit="MINUTES"/>
+			</scheduling-strategy>
+		</scheduler>
+		<logger level="INFO" doc:name="Logger" doc:id="cc7931b4-b219-441b-b400-45a27650fdea" message="#Atuomatically-job"/>
+	</flow>
+	<flow name="projectFlow1" doc:id="0bddc4db-4c48-4fa0-93c9-b1c0a4100c91" >
+		<http:listener doc:name="Listener" doc:id="938a06fa-98da-4b54-bf04-bde2c0aad7a8" path="/siva" config-ref="HTTP_Listener_config6"/>
+		<logger level="INFO" doc:name="Logger" doc:id="59d88f59-595d-4f6e-91b9-064530514236" message="Manual Job"/>
+	</flow>
+</mule>
