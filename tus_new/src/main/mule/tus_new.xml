@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
 http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
-    <http:listener-config name="first_api-httpListenerConfig">
+    <http:listener-config name="tus_new-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
-    <apikit:config name="first_api-config" api="first_api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
-    <api-gateway:autodiscovery apiId="17026810" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="d0e49a72-f439-4425-a446-5ce887603d17" flowRef="first_api-main" />
-	<flow name="first_api-main">
-        <http:listener config-ref="first_api-httpListenerConfig" path="/api/*">
+    <apikit:config name="tus_new-config" api="tus_new.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <api-gateway:autodiscovery apiId="17035435" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="10467bc6-b31b-4f34-9c0e-ade23bf10996" flowRef="tus_new-main" />
+	<flow name="tus_new-main">
+        <http:listener config-ref="tus_new-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers>#[vars.outboundHeaders default {}]</http:headers>
             </http:response>
@@ -16,7 +16,7 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
                 <http:headers>#[vars.outboundHeaders default {}]</http:headers>
             </http:error-response>
         </http:listener>
-        <apikit:router config-ref="first_api-config" />
+        <apikit:router config-ref="tus_new-config" />
         <error-handler>
             <on-error-propagate type="APIKIT:BAD_REQUEST">
                 <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
@@ -98,8 +98,8 @@ output application/json
             </on-error-propagate>
         </error-handler>
     </flow>
-    <flow name="first_api-console">
-        <http:listener config-ref="first_api-httpListenerConfig" path="/console/*">
+    <flow name="tus_new-console">
+        <http:listener config-ref="tus_new-httpListenerConfig" path="/console/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers>#[vars.outboundHeaders default {}]</http:headers>
             </http:response>
@@ -108,7 +108,7 @@ output application/json
                 <http:headers>#[vars.outboundHeaders default {}]</http:headers>
             </http:error-response>
         </http:listener>
-        <apikit:console config-ref="first_api-config" />
+        <apikit:console config-ref="tus_new-config" />
         <error-handler>
             <on-error-propagate type="APIKIT:NOT_FOUND">
                 <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
@@ -125,17 +125,10 @@ output application/json
             </on-error-propagate>
         </error-handler>
     </flow>
-    <flow name="get:\first:first_api-config">
-        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  id: 123
-}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="b02906a6-1129-4274-9a59-23f78054d3ab" message="#[payload]"/>
+    <flow name="get:\new\(employeeid):tus_new-config">
+		<logger level="INFO" doc:name="startflow" doc:id="0e77ca26-c206-46fb-8377-14827371f0fb" message="flow started"/>
+    </flow>
+    <flow name="post:\new\(employeeid):application\json:tus_new-config">
+		<logger level="INFO" doc:name="end flow" doc:id="11533c60-7e78-497c-b897-d1e762d181f4" message="flow ended"/>
     </flow>
 </mule>

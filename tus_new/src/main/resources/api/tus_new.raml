@@ -1,0 +1,48 @@
+#%RAML 1.0
+title: Tus_New
+traits:
+  client-id-required:
+    headers:
+      client_id:
+        type: string
+        required: true
+      client_secret:
+        type: string
+        required: true
+    responses:
+      401:
+        description: unauthorized
+      500:
+        description: Bad request from the authorized server  
+                  
+/new/{employeeid}:
+  get:
+    is:
+      - client-id-required
+    queryParameters:
+      skill:
+        required: true
+    description: this is fetching or retriving the data
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include getresp.json
+  post:
+    is:
+      - client-id-required
+    description: this is inserting the data
+    body:
+      application/json:
+        example: !include postreq.json
+    responses:
+      201:
+        body:
+          application/json:
+            example: !include postresp.json
+              
+          
+                  
+        
+
+            
